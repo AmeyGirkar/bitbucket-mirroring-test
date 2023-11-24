@@ -1,0 +1,17 @@
+permissions:
+  scopes:
+    - read:pullrequest:bitbucket
+modules:
+  bitbucket:repoPullRequestCard:
+    - key: related-pull-requests-card
+      resource: main
+      resolver:
+        function: resolver
+      render: native
+      title: Related Pull Requests
+  function:
+    - key: resolver
+      handler: index.handler
+resources:
+  - key: main
+    path: src/frontend/index.tsx
