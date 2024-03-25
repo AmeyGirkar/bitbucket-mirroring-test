@@ -58,7 +58,7 @@ const App = () => {
                   content: <Link href={pr.links.html.href}>{pr.title}</Link>,
                 },
                 {
-                  key: `${pr.title}`,
+                  key: `${pr.state}`,
                   content: (
                     <Lozenge appearance={prStateAppearance(pr.state)}>
                       {pr.state}
