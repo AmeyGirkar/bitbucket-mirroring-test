@@ -51,7 +51,7 @@ const App = () => {
           <DynamicTable
             head={head}
             rows={relatedPrs.map((pr, ind) => ({
-              key: `row-${ind}-${pr.title}`,
+              key: `row-${ind}`,
               cells: [
                 {
                   key: `${ind}-${pr.title}`,
