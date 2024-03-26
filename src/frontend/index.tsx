@@ -1,34 +1,24 @@
 import { invoke } from "@forge/bridge";
 import ForgeReconciler, {
-  Cell,
-  Code,
-  Head,
   Link,
-  Row,
-  StatusLozenge,
-  Table,
+  Lozenge,
   Text,
+  DynamicTable,
 } from "@forge/react";
 import React, { useEffect, useState } from "react";
 import { RelatedPullRequest } from "../types";
-import { StatusLozengeAppearance } from "@forge/react/out/types";
 
-const PrState = ({ state }: { state: string }) => {
-  let appearance: StatusLozengeAppearance;
+const prStateAppearance = (state: string) => {
   switch (state) {
     case "OPEN":
-      appearance = "inprogress";
-      break;
+      return "inprogress";
     case "MERGED":
-      appearance = "success";
-      break;
+      return "success";
     case "DECLINED":
-      appearance = "removed";
-      break;
+      return "removed";
     default:
-      appearance = "default";
+      return "default";
   }
-  return <StatusLozenge appearance={appearance}>{state}</StatusLozenge>;
 };
 
 const App = () => {
@@ -40,33 +30,44 @@ const App = () => {
     );
   }, []);
 
+  const head = {
+    cells: [
+      {
+        key: "title",
+        content: "Title",
+      },
+      {
+        key: "state",
+        content: "State",
+      },
+    ],
+  };
+
   return relatedPrs ? (
     <>
       {relatedPrs.length > 0 ? (
         <>
           <Text>Here are some related pull requests:</Text>
-          <Table>
-            <Head>
-              <Cell>
-                <Text>Title</Text>
-              </Cell>
-              <Cell>
-                <Text>State</Text>
-              </Cell>
-            </Head>
-            {relatedPrs.map((pr) => (
-              <Row>
-                <Cell>
-                  <Text>
-                    <Link href={pr.links.html.href}>{pr.title}</Link>
-                  </Text>
-                </Cell>
-                <Cell>
-                  <PrState state={pr.state} />
-                </Cell>
-              </Row>
-            ))}
-          </Table>
+          <DynamicTable
+            head={head}
+            rows={relatedPrs.map((pr) => ({
+              key: `${pr.id}`,
+              cells: [
+                {
+                  key: "title",
+                  content: <Link href={pr.links.html.href}>{pr.title}</Link>,
+                },
+                {
+                  key: "state",
+                  content: (
+                    <Lozenge appearance={prStateAppearance(pr.state)}>
+                      {pr.state}
+                    </Lozenge>
+                  ),
+                },
+              ],
+            }))}
+          />
         </>
       ) : (
         <Text>No related pull requests</Text>
