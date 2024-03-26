@@ -50,15 +50,15 @@ const App = () => {
           <Text>Here are some related pull requests:</Text>
           <DynamicTable
             head={head}
-            rows={relatedPrs.map((pr, ind) => ({
-              key: `row-${ind}`,
+            rows={relatedPrs.map((pr) => ({
+              key: `${pr.id}`,
               cells: [
                 {
-                  key: `${ind}-${pr.title}`,
+                  key: `${pr.id}-title`,
                   content: <Link href={pr.links.html.href}>{pr.title}</Link>,
                 },
                 {
-                  key: `${ind}-${pr.state}`,
+                  key: `${pr.id}-state`,
                   content: (
                     <Lozenge appearance={prStateAppearance(pr.state)}>
                       {pr.state}
