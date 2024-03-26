@@ -54,11 +54,11 @@ const App = () => {
               key: `${pr.id}`,
               cells: [
                 {
-                  key: `${pr.id}-title`,
+                  key: "title",
                   content: <Link href={pr.links.html.href}>{pr.title}</Link>,
                 },
                 {
-                  key: `${pr.id}-state`,
+                  key: "state",
                   content: (
                     <Lozenge appearance={prStateAppearance(pr.state)}>
                       {pr.state}
