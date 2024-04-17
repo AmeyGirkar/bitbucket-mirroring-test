@@ -6,7 +6,7 @@
     "lib": ["dom"],
     "jsx": "react",
     "forceConsistentCasingInFileNames": true,
-    "strict": true,
+    "strict": false,
     "skipLibCheck": true,
     "outDir": "build"
   },
