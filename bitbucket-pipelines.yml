@@ -1,0 +1,61 @@
+image: node:18-slim
+
+definitions:
+  scripts:
+    - script: &setup-node |-
+        apt-get update && apt-get install -y curl
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+        source ~/.nvm/nvm.sh
+        nvm install && nvm use
+    - script: &setup-forge |-
+        curl -L https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -o /usr/bin/yq && chmod +x /usr/bin/yq
+        yq -i '.app.id = strenv(APP_ID)' manifest.yml
+
+        npm install --global @forge/cli
+        forge settings set usage-analytics true
+  steps:
+    - step: &lint
+        name: Lint 🧹
+        caches:
+          - node
+        script:
+          - *setup-node
+          - yarn
+          - yarn lint
+    - step: &forge-lint
+        name: Forge Lint 🧹
+        script:
+          - *setup-node
+          - *setup-forge
+          - forge lint
+  parallel-steps:
+    - parallel: &test-lint
+        - step: *lint
+        - step: *forge-lint
+
+pipelines:
+  branches:
+    main:
+      - parallel: *test-lint
+      - step:
+          name: Deploy to staging
+          deployment: staging
+          script:
+            - *setup-node
+            - *setup-forge
+            - forge deploy --environment staging
+          caches:
+            - node
+      - step:
+          name: Deploy to production
+          deployment: production
+          trigger: manual
+          script:
+            - *setup-node
+            - *setup-forge
+            - forge deploy --environment production
+          caches:
+            - node
+  pull-requests:
+    "**":
+      - parallel: *test-lint
