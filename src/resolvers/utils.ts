@@ -1,8 +1,5 @@
 import api, { route, routeFromAbsolute } from "@forge/api";
-import {
-  PullRequest,
-  RelatedPullRequest,
-} from "../types";
+import { PullRequest, RelatedPullRequest } from "../types";
 
 const JIRA_ISSUE_MATCHER = /[A-Za-z]{2,}-\d+/g;
 
@@ -14,12 +11,12 @@ export const getIssueKeys = (text: string) => {
 export const getPullRequest = async (
   workspaceId: string,
   repoId: string,
-  prId: number
+  prId: number,
 ): Promise<PullRequest> => {
   const res = await api
     .asApp()
     .requestBitbucket(
-      route`/2.0/repositories/${workspaceId}/${repoId}/pullrequests/${prId}?fields=title`
+      route`/2.0/repositories/${workspaceId}/${repoId}/pullrequests/${prId}?fields=title`,
     );
 
   return res.json();
@@ -29,7 +26,7 @@ export const getPullRequestContainingIssueKeys = async (
   workspaceId: string,
   repoId: string,
   prId: number,
-  issueKeys: RegExpMatchArray
+  issueKeys: RegExpMatchArray,
 ): Promise<RelatedPullRequest[]> => {
   // Note: Bitbucket filtering can only check the title contains the issue key, not whether the issue key is an exact match.
   // E.g. if the issue key is "ABC-123", the title "ABC-1234" will also be matched.
@@ -61,18 +58,18 @@ export const getRelatedPullRequests = async (
   workspaceId: string,
   repoId: string,
   prId: number,
-  issueKeys: RegExpMatchArray
+  issueKeys: RegExpMatchArray,
 ): Promise<RelatedPullRequest[]> => {
   const prsContainingIssueKeys = await getPullRequestContainingIssueKeys(
     workspaceId,
     repoId,
     prId,
-    issueKeys
+    issueKeys,
   );
 
   // Further filter down to only PRs that contain an exact match of any of the provided issue keys
   const issueKeyPattern = new RegExp(`\\b(${issueKeys.join("|")})\\b`, "i");
   return prsContainingIssueKeys.filter(
-    (pr) => !!pr.title.match(issueKeyPattern)
+    (pr) => !!pr.title.match(issueKeyPattern),
   );
 };

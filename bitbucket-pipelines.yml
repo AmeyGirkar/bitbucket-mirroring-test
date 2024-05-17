@@ -20,8 +20,8 @@ definitions:
           - node
         script:
           - *setup-node
-          - yarn
-          - yarn lint
+          - npm install
+          - npm run lint
     - step: &forge-lint
         name: Forge Lint 🧹
         script:
