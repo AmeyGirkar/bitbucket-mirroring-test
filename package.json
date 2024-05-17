@@ -1,15 +1,18 @@
 {
-  "name": "bitbucket-pull-request-card-ui-kit-2",
-  "version": "1.0.15-next.4",
+  "name": "forge-bitbucket-related-prs",
+  "version": "0.0.0",
   "main": "index.js",
   "license": "MIT",
   "private": true,
   "scripts": {
-    "lint": "./node_modules/.bin/eslint src/**/*"
+    "lint": "eslint --ext .ts src && prettier --check src/**/*.ts && tsc --noEmit",
+    "format": "eslint --ext .ts --fix src && prettier --write src/**/*.ts"
   },
   "devDependencies": {
     "@types/react": "^18.2.38",
     "@types/react-dom": "^18.2.16",
+    "@typescript-eslint/eslint-plugin": "^7.9.0",
+    "@typescript-eslint/parser": "^7.9.0",
     "eslint": "^8.53.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "prettier": "^3.1.0",
