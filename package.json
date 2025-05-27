@@ -21,7 +21,7 @@
   "dependencies": {
     "@forge/api": "^2.20.0",
     "@forge/bridge": "^3.0.0",
-    "@forge/react": "^10.1.0",
+    "@forge/react": "^11.2.1",
     "@forge/resolver": "^1.5.21",
     "react": "^18.2.0"
   }
