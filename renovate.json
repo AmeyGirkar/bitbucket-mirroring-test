@@ -2,8 +2,11 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended",
+    ":automergeMinor",
     ":pinAllExceptPeerDependencies"
   ],
+  "automergeType": "branch",
+  "prCreation": "not-pending",
   "lockFileMaintenance": {
     "enabled": true,
     "schedule": ["at any time"]
