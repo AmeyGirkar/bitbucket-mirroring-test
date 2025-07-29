@@ -56,6 +56,5 @@ pipelines:
             - forge deploy --environment production
           caches:
             - node
-  pull-requests:
-    "**":
-      - parallel: *test-lint
+  default:
+    - parallel: *test-lint
