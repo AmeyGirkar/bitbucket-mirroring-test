@@ -17,4 +17,4 @@ resources:
     path: src/frontend/index.tsx
 app:
   runtime:
-    name: nodejs18.x
+    name: nodejs22.x
