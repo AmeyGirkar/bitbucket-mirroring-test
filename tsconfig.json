@@ -3,7 +3,7 @@
     "target": "es2022",
     "module": "commonjs",
     "esModuleInterop": true,
-    "lib": ["dom"],
+    "lib": ["dom", "ES6"],
     "jsx": "react",
     "forceConsistentCasingInFileNames": true,
     "strict": false,
