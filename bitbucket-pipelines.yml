@@ -1,4 +1,4 @@
-image: node:22.17.1-slim
+image: node:22.18.0-slim
 
 definitions:
   scripts:
