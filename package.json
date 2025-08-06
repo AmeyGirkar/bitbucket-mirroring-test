@@ -5,8 +5,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "lint": "eslint --ext .ts src && prettier --check src/**/*.ts && tsc --noEmit",
-    "format": "eslint --ext .ts --fix src && prettier --write src/**/*.ts"
+    "lint": "ESLINT_USE_FLAT_CONFIG=false eslint --ext .ts src && prettier --check src/**/*.ts && tsc --noEmit",
+    "format": "ESLINT_USE_FLAT_CONFIG=false eslint --ext .ts --fix src && prettier --write src/**/*.ts"
   },
   "devDependencies": {
     "@types/react": "18.3.23",
