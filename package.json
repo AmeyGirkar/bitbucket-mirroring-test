@@ -5,15 +5,15 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "lint": "eslint --ext .ts src && prettier --check src/**/*.ts && tsc --noEmit",
-    "format": "eslint --ext .ts --fix src && prettier --write src/**/*.ts"
+    "lint": "ESLINT_USE_FLAT_CONFIG=false eslint --ext .ts src && prettier --check src/**/*.ts && tsc --noEmit",
+    "format": "ESLINT_USE_FLAT_CONFIG=false eslint --ext .ts --fix src && prettier --write src/**/*.ts"
   },
   "devDependencies": {
     "@types/react": "18.3.23",
     "@types/react-dom": "18.3.7",
     "@typescript-eslint/eslint-plugin": "8.39.0",
     "@typescript-eslint/parser": "8.39.0",
-    "eslint": "8.57.1",
+    "eslint": "9.32.0",
     "eslint-plugin-react-hooks": "4.6.2",
     "prettier": "3.6.2",
     "typescript": "5.9.2"
